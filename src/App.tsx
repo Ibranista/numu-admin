@@ -1,19 +1,35 @@
-import { useDispatch, useSelector } from "react-redux";
-import { amountAdded } from "./features/counter/counter.slice";
-import { selectCount } from "./features/counter/selector";
+import { useEffect } from "react";
+import Auth from "./ui/Auth";
+import { onAuthChange } from "./firebase";
+import { clearAuth, setUser } from "./features/auth/auth.slice";
+import { useAppDispatch } from "./hooks/hooks";
+import api from "./services/api.service";
 
 function App() {
-  const dispatch = useDispatch();
-  const count = useSelector(selectCount);
+  const dispatch = useAppDispatch();
 
-  const handleAdd = () => {
-    dispatch(amountAdded(1));
-  };
+  useEffect(() => {
+    const unsubscribe = onAuthChange(async (currentUser) => {
+      if (currentUser) {
+        const firebaseUid = currentUser.uid;
+        try {
+          const response = await api.get(`/user/profile/${firebaseUid}/`);
+          console.log("response", response);
+          const profileData = await response.data;
+          dispatch(setUser(profileData));
+        } catch (error) {
+          console.error("Error fetching user profile:", error);
+        }
+      } else {
+        clearAuth();
+      }
+    });
 
+    return () => unsubscribe();
+  }, []);
   return (
     <>
-      <h1>Count: {count}</h1>
-      <button onClick={handleAdd}>Add</button>
+      <Auth />
     </>
   );
 }
