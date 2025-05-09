@@ -1,14 +1,36 @@
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
-import { registerUser } from "../features/auth/thunk.api";
-import type { AppDispatch } from "../store/store";
+import { useEffect } from "react";
+import { onAuthChange } from "../firebase";
 import {
   initialState,
   registerUserSchema as validationSchema,
 } from "../schema/auth.schema";
+import { registerUser } from "../features/auth/thunk.api";
+import { useAppDispatch } from "../hooks/hooks";
+import api from "../services/api.service";
+import { clearAuth, setUser } from "../features/auth/auth.slice";
 
 const RegisterUser: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const unsubscribe = onAuthChange(async (currentUser) => {
+      if (currentUser) {
+        const firebaseUid = currentUser.uid;
+        try {
+          const response = await api.get(`/user/profile/${firebaseUid}/`);
+          const profileData = await response.data;
+          dispatch(setUser(profileData));
+        } catch (error) {
+          console.error("Error fetching user profile:", error);
+        }
+      } else {
+        clearAuth();
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const formik = useFormik({
     initialValues: initialState,
