@@ -25,9 +25,9 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.user = action.payload;
             })
-            .addCase(registerUser.rejected, (state) => {
+            .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
-                state.error = "Failed to register user";
+                state.error = (action.payload as { detail: string }).detail || "Failed to register user";
             });
     },
 });
