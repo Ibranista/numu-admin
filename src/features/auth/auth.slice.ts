@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./initialState";
-import { registerUser } from "./thunk.api";
+import { loginUser, registerUser } from "./thunk.api";
 
 const authSlice = createSlice({
     name: "auth",
@@ -28,6 +28,18 @@ const authSlice = createSlice({
             .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = (action.payload as { detail: string }).detail || "Failed to register user";
+            })
+            .addCase(loginUser.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(loginUser.fulfilled, (state) => {
+                state.loading = false;
+                // state.user = action.payload;
+            })
+            .addCase(loginUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string || "Login failed";
             });
     },
 });
