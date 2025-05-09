@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./initialState";
-import { loginUser, registerUser } from "./thunk.api";
+import { getUserProfile, loginUser, registerUser } from "./thunk.api";
 
 const authSlice = createSlice({
     name: "auth",
@@ -40,6 +40,18 @@ const authSlice = createSlice({
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string || "Login failed";
+            })
+            .addCase(getUserProfile.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getUserProfile.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+            })
+            .addCase(getUserProfile.rejected, (state, action) => {
+                state.loading = false;
+                state.error = (action.payload as { detail: string }).detail || "Failed to fetch user profile";
             });
     },
 });

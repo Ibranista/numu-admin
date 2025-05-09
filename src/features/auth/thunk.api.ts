@@ -6,6 +6,18 @@ import { auth } from "../../firebase";
 
 const feature = "/user";
 
+export const getUserProfile = createAsyncThunk(
+    "auth/getUserProfile",
+    async (firebaseUid: string, thunkAPI) => {
+        try {
+            const response = await api.get(`${feature}/profile/${firebaseUid}/`);
+            return response.data;
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.response.data);
+        }
+    }
+);
+
 export const registerUser = createAsyncThunk(
     "auth/registerUser",
     async (userData: IUser, thunkAPI) => {
