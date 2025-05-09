@@ -10,6 +10,7 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = onAuthChange(async (currentUser) => {
+      console.log("pathing");
       if (currentUser) {
         const firebaseUid = currentUser.uid;
         try {
@@ -26,7 +27,8 @@ function App() {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [dispatch]);
+
   return (
     <>
       <Auth />
