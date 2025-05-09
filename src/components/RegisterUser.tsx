@@ -130,7 +130,7 @@ const RegisterUser: React.FC = () => {
       )}
 
       <button
-        disabled={!loading}
+        disabled={loading}
         type="submit"
         className={`${
           loading ? "cursor-not-allowed" : "cursor-pointer"
