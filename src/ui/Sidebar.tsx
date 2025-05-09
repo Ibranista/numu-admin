@@ -89,7 +89,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
         <div className="mt-auto mb-6 px-4">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center justify-center py-2.5 px-4 rounded-lg bg-red-600 hover:bg-red-700 transition-colors font-medium text-white"
+            className="cursor-pointer w-full flex items-center justify-center py-2.5 px-4 rounded-lg bg-red-600 hover:bg-red-700 transition-colors font-medium text-white"
           >
             <svg
               className="w-5 h-5 mr-2"
