@@ -6,13 +6,17 @@ import {
   registerUserSchema as validationSchema,
 } from "../schema/auth.schema";
 import { registerUser } from "../features/auth/thunk.api";
-import { useAppDispatch } from "../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import api from "../services/api.service";
 import { clearAuth, setUser } from "../features/auth/auth.slice";
+import { selectAuthUser } from "../features/auth/selector";
+import Spinner from "./Spinner";
 
 const RegisterUser: React.FC = () => {
   const dispatch = useAppDispatch();
-
+  const authUser = useAppSelector(selectAuthUser);
+  const { loading, error } = authUser ?? {};
+  console.log("the user-->", error);
   useEffect(() => {
     const unsubscribe = onAuthChange(async (currentUser) => {
       if (currentUser) {
@@ -126,11 +130,15 @@ const RegisterUser: React.FC = () => {
       )}
 
       <button
+        disabled={!loading}
         type="submit"
-        className="cursor-pointer w-full p-2 rounded bg-purple-500 hover:bg-purple-600 focus:outline-none"
+        className={`${
+          loading ? "cursor-not-allowed" : "cursor-pointer"
+        } w-full p-2 rounded bg-purple-500 hover:bg-purple-600 focus:outline-none`}
       >
-        Create Account
+        {loading ? <Spinner /> : "Create Account"}
       </button>
+      {error && <div className="text-red-500 text-sm">{error}</div>}
     </form>
   );
 };
