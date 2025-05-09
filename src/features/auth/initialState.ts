@@ -14,6 +14,6 @@ export const initialState: AuthState = {
         first_name: "",
         last_name: "",
     },
-    loading: false,
+    loading: true,
     error: null,
 };
