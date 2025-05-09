@@ -1,4 +1,10 @@
-import type { AuthState } from "./types";
+import type { AuthState, IProfileState } from "./types";
+
+export const profileInitialState: IProfileState = {
+    profile: null,
+    loading: false,
+    error: null,
+};
 
 export const initialState: AuthState = {
     user: {
@@ -8,7 +14,6 @@ export const initialState: AuthState = {
         first_name: "",
         last_name: "",
     },
-    profile: null,
     loading: false,
     error: null,
 };
