@@ -1,28 +1,26 @@
 import { useEffect } from "react";
-import Auth from "./ui/Auth";
 import { onAuthChange } from "./firebase";
-import { clearAuth, setUser } from "./features/auth/auth.slice";
+import { clearAuth } from "./features/auth/auth.slice";
 import { useAppDispatch } from "./hooks/hooks";
-import api from "./services/api.service";
+import Dashboard from "./ui/dashboard";
+import { Route, Routes } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { getUserProfile } from "./features/auth/thunk.api";
+import AuthRedirect from "./ui/AuthRedirect";
 
 function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const unsubscribe = onAuthChange(async (currentUser) => {
-      console.log("pathing");
       if (currentUser) {
-        const firebaseUid = currentUser.uid;
         try {
-          const response = await api.get(`/user/profile/${firebaseUid}/`);
-          console.log("response", response);
-          const profileData = await response.data;
-          dispatch(setUser(profileData));
+          await dispatch(getUserProfile(currentUser.uid));
         } catch (error) {
           console.error("Error fetching user profile:", error);
         }
       } else {
-        clearAuth();
+        dispatch(clearAuth());
       }
     });
 
@@ -30,9 +28,17 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
-      <Auth />
-    </>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="/auth" element={<AuthRedirect />} />
+    </Routes>
   );
 }
 
