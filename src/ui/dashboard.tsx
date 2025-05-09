@@ -7,7 +7,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex h-screen bg-gray-100">
-      <Sidebar />
+      <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <header className="lg:hidden bg-gray-900 text-white p-4 flex items-center justify-between">
