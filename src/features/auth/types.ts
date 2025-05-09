@@ -1,9 +1,10 @@
 export interface IUser {
-    uid: string;
+    uid?: string;
     role: string;
     email: string;
     first_name: string;
     last_name: string;
+    password?: string;
 }
 
 export interface IUserProfile {
@@ -16,6 +17,11 @@ export interface IUserProfile {
 
 export interface AuthState {
     user: IUser | null;
+    loading: boolean;
+    error: string | null;
+}
+
+export interface IProfileState {
     profile: IUserProfile | null;
     loading: boolean;
     error: string | null;
