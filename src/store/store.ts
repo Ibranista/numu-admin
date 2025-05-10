@@ -4,6 +4,8 @@ import authReducer from "../features/auth/auth.slice";
 import expertiseReducer from "../features/expertise/expertise.slice";
 import therapistsReducer from "../features/therapists/therapists.slice";
 import concernsReducer from "../features/concerns/concerns.slice";
+import childrenReducer from "../features/children/children.slice";
+import matchesReducer from "../features/therapistMatches/matches.slice";
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +14,8 @@ export const store = configureStore({
         expertise: expertiseReducer,
         therapists: therapistsReducer,
         concerns: concernsReducer,
+        children: childrenReducer,
+        matches: matchesReducer
     },
 });
 
