@@ -5,6 +5,6 @@ import { initialState } from "./initialState";
 export const selectChildrenSlice = (state: RootState) => state?.children || initialState;
 
 export const selectChildren = createSelector(
-  [selectChildrenSlice],
-  state => state
+    [selectChildrenSlice],
+    state => state
 );
