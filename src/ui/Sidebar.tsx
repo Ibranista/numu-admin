@@ -52,7 +52,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
           <span className="ml-3 text-2xl font-semibold">WeCare</span>
         </div>
 
-        <nav className="flex-1 py-6 flex flex-col gap-1 px-4">
+        <nav className="flex-1 py-6 flex flex-col gap-5 px-4">
           {links.map((link) => (
             <button
               key={link.name}
@@ -60,7 +60,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
                 navigate(link.path);
                 setOpen(false);
               }}
-              className={`text-2xl flex items-center px-4 py-3 rounded-lg transition-all duration-200 w-full font-medium
+              className={`cursor-pointer text-2xl flex items-center px-4 py-3 rounded-lg transition-all duration-200 w-full font-medium
                 ${
                   location.pathname === link.path
                     ? "bg-purple-700 text-white"
