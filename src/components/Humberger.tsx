@@ -1,7 +1,7 @@
 const HamburgerButton = ({ onClick }: { onClick: () => void }) => (
   <button
     onClick={onClick}
-    className="p-2 rounded-md hover:bg-gray-800 focus:outline-none"
+    className="cursor-pointer p-2 rounded-md hover:bg-gray-800 focus:outline-none"
     aria-label="Toggle menu"
   >
     <svg
