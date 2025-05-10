@@ -5,7 +5,7 @@ import type { IExpertise } from "./types";
 const feature = "/expertise";
 
 export const getExpertise = createAsyncThunk(
-    "auth/getExpertise",
+    "expertise/getExpertise",
     async (_, thunkAPI) => {
         try {
             const response = await api.get(`${feature}/`);

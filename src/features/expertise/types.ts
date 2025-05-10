@@ -1,4 +1,5 @@
 export interface IExpertise {
+    id?: string;
     expertise: string[];
 }
 
