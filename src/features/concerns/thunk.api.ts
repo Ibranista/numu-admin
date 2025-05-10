@@ -18,7 +18,7 @@ export const getConcerns = createAsyncThunk(
 
 export const createConcerns = createAsyncThunk(
     "concerns/createConcerns",
-    async (concernData: IConcern[], thunkAPI) => {
+    async (concernData: { concerns: IConcern[] }, thunkAPI) => {
         try {
             const response = await api.post(`${feature}/`, concernData);
             return response.data;
