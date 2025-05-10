@@ -32,7 +32,7 @@ const concernSlice = createSlice({
             })
             .addCase(createConcerns.fulfilled, (state, action) => {
                 state.loading = false;
-                state.concerns = [...state.concerns, action.payload];
+                state.concerns = [...(state.concerns as any).results, action.payload];
             })
             .addCase(createConcerns.rejected, (state, action) => {
                 state.loading = false;
