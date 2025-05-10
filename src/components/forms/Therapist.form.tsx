@@ -41,12 +41,17 @@ const TherapistForm = () => {
       formData.append("name", values.name);
       formData.append("bio", values.bio);
       formData.append("experience_years", String(values.experience_years));
-      formData.append("expertise_ids", values.expertise_ids.join(","));
+      values.expertise_ids.forEach((id) => {
+        formData.append("expertise_ids", id);
+      });
+
       if (values.image instanceof File) {
         formData.append("image", values.image);
       }
 
       dispatch(createTherapist(formData));
+      formik.resetForm();
+      setPreviewUrl(null);
     },
   });
 
