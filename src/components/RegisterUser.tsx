@@ -22,8 +22,9 @@ const RegisterUser: React.FC = () => {
   });
 
   return (
-    <form className="space-y-4 w-full max-w-md" onSubmit={formik.handleSubmit}>
-      <h2 className="text-2xl font-bold">Create User</h2>
+    <form className="space-y-6 w-full max-w-2xl" onSubmit={formik.handleSubmit}>
+      <h2 className="text-4xl font-bold">Create User</h2>
+
       <input
         type="text"
         name="first_name"
@@ -31,14 +32,14 @@ const RegisterUser: React.FC = () => {
         value={formik.values.first_name}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        className={`w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+        className={`w-full p-6 text-xl rounded bg-gray-700 text-white focus:outline-none focus:ring-4 focus:ring-purple-500 ${
           formik.touched.first_name && formik.errors.first_name
-            ? "border-red-500"
+            ? "border-4 border-red-500"
             : ""
         }`}
       />
       {formik.touched.first_name && formik.errors.first_name && (
-        <div className="text-red-500 text-sm">{formik.errors.first_name}</div>
+        <div className="text-red-500 text-lg">{formik.errors.first_name}</div>
       )}
 
       <input
@@ -48,14 +49,14 @@ const RegisterUser: React.FC = () => {
         value={formik.values.last_name}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        className={`w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+        className={`w-full p-6 text-xl rounded bg-gray-700 text-white focus:outline-none focus:ring-4 focus:ring-purple-500 ${
           formik.touched.last_name && formik.errors.last_name
-            ? "border-red-500"
+            ? "border-4 border-red-500"
             : ""
         }`}
       />
       {formik.touched.last_name && formik.errors.last_name && (
-        <div className="text-red-500 text-sm">{formik.errors.last_name}</div>
+        <div className="text-red-500 text-lg">{formik.errors.last_name}</div>
       )}
 
       <input
@@ -65,12 +66,14 @@ const RegisterUser: React.FC = () => {
         value={formik.values.email}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        className={`w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-          formik.touched.email && formik.errors.email ? "border-red-500" : ""
+        className={`w-full p-6 text-xl rounded bg-gray-700 text-white focus:outline-none focus:ring-4 focus:ring-purple-500 ${
+          formik.touched.email && formik.errors.email
+            ? "border-4 border-red-500"
+            : ""
         }`}
       />
       {formik.touched.email && formik.errors.email && (
-        <div className="text-red-500 text-sm">{formik.errors.email}</div>
+        <div className="text-red-500 text-lg">{formik.errors.email}</div>
       )}
 
       <select
@@ -78,15 +81,17 @@ const RegisterUser: React.FC = () => {
         value={formik.values.role}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        className={`w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-          formik.touched.role && formik.errors.role ? "border-red-500" : ""
+        className={`w-full p-6 text-xl rounded bg-gray-700 text-white focus:outline-none focus:ring-4 focus:ring-purple-500 ${
+          formik.touched.role && formik.errors.role
+            ? "border-4 border-red-500"
+            : ""
         }`}
       >
         <option value="parent">Parent</option>
         <option value="admin">Admin</option>
       </select>
       {formik.touched.role && formik.errors.role && (
-        <div className="text-red-500 text-sm">{formik.errors.role}</div>
+        <div className="text-red-500 text-lg">{formik.errors.role}</div>
       )}
 
       <input
@@ -96,14 +101,14 @@ const RegisterUser: React.FC = () => {
         value={formik.values.password}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        className={`w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+        className={`w-full p-6 text-xl rounded bg-gray-700 text-white focus:outline-none focus:ring-4 focus:ring-purple-500 ${
           formik.touched.password && formik.errors.password
-            ? "border-red-500"
+            ? "border-4 border-red-500"
             : ""
         }`}
       />
       {formik.touched.password && formik.errors.password && (
-        <div className="text-red-500 text-sm">{formik.errors.password}</div>
+        <div className="text-red-500 text-lg">{formik.errors.password}</div>
       )}
 
       <button
@@ -111,11 +116,12 @@ const RegisterUser: React.FC = () => {
         type="submit"
         className={`${
           loading ? "cursor-not-allowed" : "cursor-pointer"
-        } w-full p-2 rounded bg-purple-500 hover:bg-purple-600 focus:outline-none`}
+        } w-full p-6 text-2xl font-semibold rounded bg-purple-500 hover:bg-purple-600 focus:outline-none`}
       >
         {loading ? <Spinner /> : "Create Account"}
       </button>
-      {error && <div className="text-red-500 text-sm">{error}</div>}
+
+      {error && <div className="text-red-500 text-lg">{error}</div>}
     </form>
   );
 };

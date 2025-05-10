@@ -19,8 +19,9 @@ const Login: React.FC = () => {
   });
 
   return (
-    <form className="space-y-4 w-full max-w-md" onSubmit={formik.handleSubmit}>
-      <h2 className="text-2xl font-bold">Login</h2>
+    <form className="space-y-6 w-full max-w-2xl" onSubmit={formik.handleSubmit}>
+      <h2 className="text-4xl font-bold">Login</h2>
+
       <input
         type="email"
         name="email"
@@ -28,12 +29,14 @@ const Login: React.FC = () => {
         value={formik.values.email}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        className={`w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-          formik.touched.email && formik.errors.email ? "border-red-500" : ""
+        className={`w-full p-6 text-xl rounded bg-gray-700 text-white focus:outline-none focus:ring-4 focus:ring-purple-500 ${
+          formik.touched.email && formik.errors.email
+            ? "border-4 border-red-500"
+            : ""
         }`}
       />
       {formik.touched.email && formik.errors.email && (
-        <div className="text-red-500 text-sm">{formik.errors.email}</div>
+        <div className="text-red-500 text-lg">{formik.errors.email}</div>
       )}
 
       <input
@@ -43,14 +46,14 @@ const Login: React.FC = () => {
         value={formik.values.password}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        className={`w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+        className={`w-full p-6 text-xl rounded bg-gray-700 text-white focus:outline-none focus:ring-4 focus:ring-purple-500 ${
           formik.touched.password && formik.errors.password
-            ? "border-red-500"
+            ? "border-4 border-red-500"
             : ""
         }`}
       />
       {formik.touched.password && formik.errors.password && (
-        <div className="text-red-500 text-sm">{formik.errors.password}</div>
+        <div className="text-red-500 text-lg">{formik.errors.password}</div>
       )}
 
       <button
@@ -58,11 +61,12 @@ const Login: React.FC = () => {
         type="submit"
         className={`${
           loading ? "cursor-not-allowed" : "cursor-pointer"
-        } w-full p-2 rounded bg-purple-500 hover:bg-purple-600 focus:outline-none`}
+        } w-full p-6 text-2xl font-semibold rounded bg-purple-500 hover:bg-purple-600 focus:outline-none`}
       >
         {loading ? <Spinner /> : "Login"}
       </button>
-      {error && <div className="text-red-500 text-sm">Invalid Credentials</div>}
+
+      {error && <div className="text-red-500 text-lg">Invalid Credentials</div>}
     </form>
   );
 };
