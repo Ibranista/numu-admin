@@ -7,6 +7,9 @@ import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { getUserProfile } from "./features/auth/thunk.api";
 import AuthRedirect from "./ui/AuthRedirect";
+import Utils from "./ui/Utils";
+import TherapistMatch from "./ui/TherapistMatch";
+import Therapists from "./ui/Therapist";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -34,6 +37,30 @@ function App() {
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/therapist"
+        element={
+          <ProtectedRoute>
+            <Therapists />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/therapist-match"
+        element={
+          <ProtectedRoute>
+            <TherapistMatch />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/utils"
+        element={
+          <ProtectedRoute>
+            <Utils />
           </ProtectedRoute>
         }
       />
