@@ -1,14 +1,15 @@
 export interface ITherapist {
     id: any;
     name: string;
-    image: File | null;
+    image: File | null | string;
     experience_years: number | null;
     bio: string;
     expertise_ids: string[];
     expertise: {
         id: any;
         expertise: string;
-    }[]
+    }[];
+    createdDate: string;
 }
 
 export interface ITherapistState {
