@@ -3,6 +3,7 @@ import counterReducer from "../features/counter/counter.slice";
 import authReducer from "../features/auth/auth.slice";
 import expertiseReducer from "../features/expertise/expertise.slice";
 import therapistsReducer from "../features/therapists/therapists.slice";
+import concernsReducer from "../features/concerns/concerns.slice";
 
 export const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
         auth: authReducer,
         expertise: expertiseReducer,
         therapists: therapistsReducer,
+        concerns: concernsReducer,
     },
 });
 
