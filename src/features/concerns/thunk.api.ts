@@ -6,9 +6,9 @@ const feature = "/concerns";
 
 export const getConcerns = createAsyncThunk(
     "concerns/getConcerns",
-    async (_, thunkAPI) => {
+    async (page: number = 1, thunkAPI) => {
         try {
-            const response = await api.get(`${feature}/`);
+            const response = await api.get(`${feature}/?page=${page}`);
             return response.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data);
