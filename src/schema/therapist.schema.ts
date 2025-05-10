@@ -2,6 +2,8 @@
 import * as Yup from "yup";
 
 export const therapistInitialValues = {
+    id: "",
+    expertise: [],
     name: "",
     image: null,
     expertise_ids: [],
