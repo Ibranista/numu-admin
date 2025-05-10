@@ -27,7 +27,7 @@ const Utils = () => {
   useEffect(() => {
     dispatch(getExpertise());
     dispatch(getTherapists());
-    dispatch(getConcerns());
+    dispatch(getConcerns(1));
   }, [dispatch]);
 
   return (
