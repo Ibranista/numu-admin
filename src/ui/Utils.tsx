@@ -9,23 +9,25 @@ import { selectTherapist } from "../features/therapists/selector";
 import { selectExpertise } from "../features/expertise/selector";
 import { getTherapists } from "../features/therapists/thunk.api";
 import Spinner from "../components/Spinner";
+import { selectConcerns } from "../features/concerns/selector";
+import { getConcerns } from "../features/concerns/thunk.api";
+import ConcernsForm from "../components/forms/Concerns.form";
 
 const Utils = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const dispatch = useAppDispatch();
   const therapistData = useAppSelector(selectTherapist);
   const expertiseData = useAppSelector(selectExpertise);
-
+  const concernsData = useAppSelector(selectConcerns);
+  console.log("Concerns Data", concernsData);
   const { loading, therapists } = therapistData ?? {};
   const { expertise: expertiseList, loading: expertiseLoading } =
     expertiseData ?? {};
-  console.log({
-    therapists,
-    expertiseList,
-  });
+
   useEffect(() => {
     dispatch(getExpertise());
     dispatch(getTherapists());
+    dispatch(getConcerns());
   }, [dispatch]);
 
   return (
@@ -53,13 +55,13 @@ const Utils = () => {
                 <h3 className="text-lg font-semibold text-purple-800 mb-2">
                   Therapists Expertise
                 </h3>
-                <p className="text-3xl font-bold text-purple-600">
-                  {expertiseLoading ? (
-                    <Spinner variation="medium" />
-                  ) : (
-                    expertiseList?.length || 0
-                  )}
-                </p>
+                {expertiseLoading ? (
+                  <Spinner variation="medium" />
+                ) : (
+                  <p className="text-3xl font-bold text-purple-600">
+                    {expertiseList?.length || 0}
+                  </p>
+                )}
                 <p className="text-sm text-gray-500">
                   Add lists of expertise types to be used in the therapist
                   section later
@@ -72,13 +74,13 @@ const Utils = () => {
                 <h3 className="text-lg font-semibold text-blue-800 mb-2">
                   Therapists
                 </h3>
-                <p className="text-3xl font-bold text-blue-600">
-                  {loading ? (
-                    <Spinner variation="medium" />
-                  ) : (
-                    therapists?.length || 0
-                  )}
-                </p>
+                {loading ? (
+                  <Spinner variation="medium" />
+                ) : (
+                  <p className="text-3xl font-bold text-blue-600">
+                    {therapists?.length || 0}
+                  </p>
+                )}
                 <p className="text-sm text-gray-500">Add lists of therapists</p>
                 <div className="mt-4">
                   <TherapistForm />
@@ -86,9 +88,15 @@ const Utils = () => {
               </div>
               <div className="bg-green-50 p-6 rounded-lg border border-green-100">
                 <h3 className="text-lg font-semibold text-green-800 mb-2">
-                  Resources
+                  Concerns
                 </h3>
                 <p className="text-3xl font-bold text-green-600">5+</p>
+                <p className="text-sm text-gray-500">
+                  Add lists of concerns to be added when creatid a child
+                </p>
+                <div className="mt-4">
+                  <ConcernsForm />
+                </div>
               </div>
             </article>
           </div>
