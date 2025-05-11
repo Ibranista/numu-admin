@@ -18,19 +18,43 @@ export const getUserProfile = createAsyncThunk(
     }
 );
 
+// export const registerUser = createAsyncThunk(
+//     "auth/registerUser",
+//     async (userData: IUser, thunkAPI) => {
+//         try {
+//             console.log("userData", userData);
+//             const response = await api.post(`${feature}/register/`, userData);
+//             if (response.data) {
+//                 const { email, password } = userData;
+//                 console.log("start with firebase");
+//                 await signInWithEmailAndPassword(auth, email, password as any);
+//                 console.log("firebase success");
+//             }
+//             console.log("response", response);
+//             return response.data;
+//         } catch (error: any) {
+//             return thunkAPI.rejectWithValue(error.response.data);
+//         }
+//     }
+// );
+
 export const registerUser = createAsyncThunk(
     "auth/registerUser",
     async (userData: IUser, thunkAPI) => {
         try {
-            console.log("userData", userData);
             const response = await api.post(`${feature}/register/`, userData);
             if (response.data) {
                 const { email, password } = userData;
-                console.log("start with firebase");
                 await signInWithEmailAndPassword(auth, email, password as any);
-                console.log("firebase success");
+                await new Promise<void>((resolve) => {
+                    const unsubscribe = auth.onAuthStateChanged((user) => {
+                        if (user) {
+                            resolve();
+                            unsubscribe();
+                        }
+                    });
+                });
             }
-            console.log("response", response);
             return response.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data);
@@ -44,7 +68,16 @@ export const loginUser = createAsyncThunk(
         try {
             const { email, password } = loginData;
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            return userCredential.user;
+            console.log("userCredential", userCredential);
+            return {
+                uid: userCredential.user.uid,
+                email: userCredential.user.email,
+                first_name: "",
+                last_name: "",
+                role: "",
+                firebase_uid: userCredential.user.uid,
+            }
+            // return userCredential.user;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message || "Login failed");
         }
