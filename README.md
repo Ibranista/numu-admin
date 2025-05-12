@@ -1,54 +1,66 @@
-# React + TypeScript + Vite
+# Numu Admin
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Numu Admin Screenshot](./public/numu-admin.png)
 
-Currently, two official plugins are available:
+Numu Admin is a modern admin dashboard for managing parents, therapists, and suggest therapists to parents. Built with [Vite](https://vitejs.dev/) for lightning-fast development, it leverages [Firebase](https://firebase.google.com/) for authentication and secure user management.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- 🔒 Secure authentication with Firebase
+- 👩‍⚕️ Manage therapists and their expertise
+- 👶 Manage children and their concerns
+- 🤝 Match children with therapists
+- ⚡️ Built with Vite for fast development and hot reloads
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 1. Clone the repository
+
+```bash
+git clone git@github.com:Ibranista/numu-admin.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install || pnpm install || yarn
 ```
+
+### 3. Configure environment variables
+
+Copy the example environment file and fill in your Firebase and API credentials:
+
+```bash
+cp example.env .env
+```
+
+Edit `.env` and set the required values (see `example.env` for guidance).
+
+### 4. Run the development server
+
+```bash
+npm run dev
+```
+
+The app will be available at [http://localhost:5173](http://localhost:5173) (or your configured port).
+
+## Project Structure
+
+- `src/` - Main source code
+- `src/features/` - Redux slices and thunks for app features
+- `src/components/` - Reusable UI components
+- `src/ui/` - Page-level components
+- `src/firebase.ts` - Firebase configuration and helpers
+
+## Notes
+
+- Make sure you have a Firebase project set up and the correct credentials in your `.env` file.
+- For API integration, ensure your backend is running and accessible at the URL specified in your environment variables.
+
+## License
+
+MIT
+
+---
+
+**Happy managing with Numu Admin!**
