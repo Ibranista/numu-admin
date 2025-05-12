@@ -7,21 +7,25 @@ import {
 import type { IExpertise } from "../../features/expertise/types";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { createExpertise } from "../../features/expertise/thunk.api";
-import { clearExpertise } from "../../features/expertise/expertise.slice";
 import { DeleteIcon, PlusIcon } from "../../assets/icons";
+import toast from "react-hot-toast";
 
 const ExpertiseForm = () => {
   const dispatch = useAppDispatch();
   const expertiseData = useAppSelector((state) => state.expertise);
   const { loading, error } = expertiseData ?? {};
-
+  console.log("expertise data-->", expertiseData);
   const formik = useFormik<IExpertise>({
     initialValues: expertiseInitialValues,
     validationSchema: expertiseSchema,
-    onSubmit: (values) => {
-      dispatch(createExpertise(values));
-      dispatch(clearExpertise());
-      formik.resetForm();
+    onSubmit: async (values) => {
+      try {
+        await dispatch(createExpertise(values)).unwrap();
+        toast.success("Expertise added successfully!");
+        formik.resetForm();
+      } catch (error: any) {
+        toast.error(`Failed to add expertise. Please try again. ${error}`);
+      }
     },
   });
 
