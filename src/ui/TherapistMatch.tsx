@@ -8,6 +8,7 @@ import { selectTherapist } from "../features/therapists/selector";
 import type { ISuggestTherapistPayload } from "../features/children/types";
 import Pagination from "../components/Pagination";
 import MatchLoadingSkeleton from "../components/MatchLoadingSkeleton";
+import toast from "react-hot-toast";
 
 const TherapistMatch = () => {
   const dispatch = useAppDispatch();
@@ -35,7 +36,11 @@ const TherapistMatch = () => {
     dispatch(getTherapists());
   }, [dispatch, page, limit]);
 
-  const handleSuggest = async (childId: number, therapistId: number) => {
+  const handleSuggest = async (
+    childId: number,
+    therapistId: number,
+    therapistName?: string
+  ) => {
     setSuggestingId({ childId, therapistId });
     const payload: ISuggestTherapistPayload = {
       child: childId,
@@ -44,6 +49,7 @@ const TherapistMatch = () => {
       status: "pending",
     };
     await dispatch(suggestTherapist(payload));
+    toast.success(`Successfully suggested '${therapistName || "therapist"}'`);
     await dispatch(getChildren({ page, limit }));
     setSuggestingId(null);
   };
@@ -104,18 +110,18 @@ const TherapistMatch = () => {
                     Therapists
                   </p>
                   <article className="flex-1 flex flex-col gap-4 max-h-96 overflow-auto">
-                    {therapists?.length ? (
-                      therapists
-                        ?.filter(
-                          (therapists) =>
-                            !child.acceptedTherapists?.includes(
-                              therapists.id
-                            ) &&
-                            !child.therapist_matches?.some(
-                              (match) => match.therapist.id === therapists.id
-                            )
-                        )
-                        .map((therapist) => (
+                    {(() => {
+                      const filteredTherapists = therapists?.filter(
+                        (therapist) =>
+                          !child.acceptedTherapists?.includes(therapist.id) &&
+                          !child.therapist_matches?.some(
+                            (match) => match.therapist.id === therapist.id
+                          )
+                      );
+
+                      return filteredTherapists &&
+                        filteredTherapists.length > 0 ? (
+                        filteredTherapists.map((therapist) => (
                           <div
                             key={therapist.id}
                             className="bg-blue-50 rounded-lg p-4 flex flex-col md:flex-row md:items-center gap-3 border border-blue-100 shadow-sm"
@@ -131,8 +137,9 @@ const TherapistMatch = () => {
                               </div>
                             </div>
                             <button
-                              className={`cursor-pointer px-4 py-2 rounded-md text-white font-semibold bg-gradient-to-r from-purple-500 to-blue-500 hover:from-primary hover:to-blue-600 trprimarybg-primary-hover{
-                                suggesting
+                              className={`cursor-pointer px-4 py-2 rounded-md text-white font-semibold bg-gradient-to-r from-purple-500 to-blue-500 hover:from-primary hover:to-blue-600 ${
+                                suggestingId?.childId === child.id &&
+                                suggestingId?.therapistId === therapist.id
                                   ? "opacity-60 cursor-not-allowed"
                                   : ""
                               }`}
@@ -141,7 +148,11 @@ const TherapistMatch = () => {
                                 suggestingId?.therapistId === therapist.id
                               }
                               onClick={() =>
-                                handleSuggest(child.id, therapist.id)
+                                handleSuggest(
+                                  child.id,
+                                  therapist.id,
+                                  therapist.name
+                                )
                               }
                             >
                               {suggestingId?.childId === child.id &&
@@ -151,9 +162,12 @@ const TherapistMatch = () => {
                             </button>
                           </div>
                         ))
-                    ) : (
-                      <div className="text-gray-500">No therapist matches</div>
-                    )}
+                      ) : (
+                        <div className="text-gray-500">
+                          No therapist matches
+                        </div>
+                      );
+                    })()}
                   </article>
                 </section>
               </section>
