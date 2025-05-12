@@ -63,9 +63,11 @@ const TherapistMatch = () => {
         </h1>
         <section className="grid grid-cols-2 gap-8">
           {childrenLoading ? (
-            <div className="col-span-2">
-              <MatchLoadingSkeleton />
-            </div>
+            Array.from({ length: limit }).map((_, idx) => (
+              <div className="col-span-1" key={idx}>
+                <MatchLoadingSkeleton />
+              </div>
+            ))
           ) : children?.results?.length ? (
             children?.results?.map((child) => (
               <section
