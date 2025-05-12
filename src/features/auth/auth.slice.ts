@@ -33,9 +33,16 @@ const authSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(loginUser.fulfilled, (state) => {
-                state.loading = false;
-                // state.user = action.payload;
+            .addCase(loginUser.fulfilled, (state, action) => {
+                const user = action.payload;
+                state.user = {
+                    uid: user.uid,
+                    email: user.email || "",
+                    first_name: "",
+                    last_name: "",
+                    role: "",
+                    firebase_uid: user.uid,
+                }
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;
