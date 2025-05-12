@@ -1,20 +1,71 @@
-import { useDispatch, useSelector } from "react-redux";
-import { amountAdded } from "./features/counter/counter.slice";
-import { selectCount } from "./features/counter/selector";
+import { useEffect } from "react";
+import { onAuthChange } from "./firebase";
+import { clearAuth } from "./features/auth/auth.slice";
+import { useAppDispatch } from "./hooks/hooks";
+import Dashboard from "./ui/dashboard";
+import { Route, Routes } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { getUserProfile } from "./features/auth/thunk.api";
+import AuthRedirect from "./ui/AuthRedirect";
+import Utils from "./ui/Utils";
+import TherapistMatch from "./ui/TherapistMatch";
+import Therapists from "./ui/Therapist";
 
 function App() {
-  const dispatch = useDispatch();
-  const count = useSelector(selectCount);
+  const dispatch = useAppDispatch();
 
-  const handleAdd = () => {
-    dispatch(amountAdded(1));
-  };
+  useEffect(() => {
+    const unsubscribe = onAuthChange(async (currentUser) => {
+      if (currentUser) {
+        try {
+          await dispatch(getUserProfile(currentUser.uid));
+        } catch (error) {
+          console.error("Error fetching user profile:", error);
+        }
+      } else {
+        dispatch(clearAuth());
+      }
+    });
+
+    return () => unsubscribe();
+  }, [dispatch]);
 
   return (
-    <>
-      <h1>Count: {count}</h1>
-      <button onClick={handleAdd}>Add</button>
-    </>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/therapist"
+        element={
+          <ProtectedRoute>
+            <Therapists />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/therapist-match"
+        element={
+          <ProtectedRoute>
+            <TherapistMatch />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/utils"
+        element={
+          <ProtectedRoute>
+            <Utils />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="/auth" element={<AuthRedirect />} />
+    </Routes>
   );
 }
 
