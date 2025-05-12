@@ -5,6 +5,7 @@ import { selectConcerns } from "../../features/concerns/selector";
 import * as Yup from "yup";
 import { createConcerns } from "../../features/concerns/thunk.api";
 import { DeleteIcon, PlusIcon } from "../../assets/icons";
+import { toast } from "react-hot-toast";
 
 const concernInitialValues = {
   concerns: [{ title: "", description: "" }],
@@ -28,10 +29,15 @@ const ConcernsForm = () => {
   const formik = useFormik({
     initialValues: concernInitialValues,
     validationSchema: concernSchema,
-    onSubmit: (values, { resetForm }) => {
-      console.log("Form values:", values);
-      dispatch(createConcerns(values));
-      resetForm();
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        await dispatch(createConcerns(values)).unwrap();
+        toast.success("Concerns registered successfully!");
+        resetForm();
+      } catch (err: any) {
+        console.log(err);
+        toast.error(err?.[0]?.title?.[0] || "Failed to register concerns");
+      }
     },
   });
 

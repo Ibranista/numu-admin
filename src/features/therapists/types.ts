@@ -9,7 +9,7 @@ export interface ITherapist {
         id: any;
         expertise: string;
     }[];
-    createdDate: string;
+    createdDate?: string;
 }
 
 export interface ITherapistState {

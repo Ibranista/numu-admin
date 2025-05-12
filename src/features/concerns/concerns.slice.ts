@@ -36,7 +36,7 @@ const concernSlice = createSlice({
             })
             .addCase(createConcerns.rejected, (state, action) => {
                 state.loading = false;
-                state.error = (action.payload as { detail: string }).detail || "Failed to create expertise";
+                state.error = (action.payload as { detail: string }).detail || "Failed to create concerns";
             });
     },
 });

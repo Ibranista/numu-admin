@@ -4,7 +4,7 @@ export const initialState = {
     first_name: '',
     last_name: '',
     email: '',
-    role: 'parent',
+    role: 'admin',
     password: '',
 }
 

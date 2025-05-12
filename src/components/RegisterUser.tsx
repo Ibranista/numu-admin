@@ -7,6 +7,7 @@ import { registerUser } from "../features/auth/thunk.api";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { selectAuthUser } from "../features/auth/selector";
 import Spinner from "./Spinner";
+import toast from "react-hot-toast";
 
 const RegisterUser: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -16,8 +17,13 @@ const RegisterUser: React.FC = () => {
   const formik = useFormik({
     initialValues: initialState,
     validationSchema,
-    onSubmit: (values) => {
-      dispatch(registerUser(values));
+    onSubmit: async (values) => {
+      const result = await dispatch(registerUser(values));
+      if (result.type === "auth/registerUser/fulfilled") {
+        toast.success("Account created successfully!");
+      } else if (result.type === "auth/registerUser/rejected") {
+        toast.error(error || "Failed to create account");
+      }
     },
   });
 
@@ -86,9 +92,11 @@ const RegisterUser: React.FC = () => {
             ? "border-4 border-red-500"
             : ""
         }`}
+        defaultValue={"admin"}
+        disabled
       >
-        <option value="parent">Parent</option>
         <option value="admin">Admin</option>
+        {/* <option value="parent">Parent</option> */}
       </select>
       {formik.touched.role && formik.errors.role && (
         <div className="text-red-500 text-lg">{formik.errors.role}</div>

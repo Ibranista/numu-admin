@@ -10,6 +10,7 @@ import {
   therapistSchema,
 } from "../../schema/therapist.schema";
 import { createTherapist } from "../../features/therapists/thunk.api";
+import { toast } from "react-hot-toast";
 
 const TherapistForm = () => {
   const dispatch = useAppDispatch();
@@ -36,7 +37,7 @@ const TherapistForm = () => {
   const formik = useFormik<ITherapist>({
     initialValues: therapistInitialValues,
     validationSchema: therapistSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const formData = new FormData();
       formData.append("name", values.name);
       formData.append("bio", values.bio);
@@ -49,9 +50,14 @@ const TherapistForm = () => {
         formData.append("image", values.image);
       }
 
-      dispatch(createTherapist(formData));
-      formik.resetForm();
-      setPreviewUrl(null);
+      try {
+        await dispatch(createTherapist(formData)).unwrap();
+        toast.success("Therapist added successfully!");
+        formik.resetForm();
+        setPreviewUrl(null);
+      } catch (err: any) {
+        toast.error(err?.message || "Failed to add therapist");
+      }
     },
   });
 
@@ -199,6 +205,8 @@ const TherapistForm = () => {
       </button>
 
       {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+      {/* Show toast for error in Redux state (if not already shown) */}
+      {/* Optionally, you can remove this div if you only want toast feedback */}
     </form>
   );
 };

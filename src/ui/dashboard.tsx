@@ -1,16 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
-import { useAppSelector } from "../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { selectTherapist } from "../features/therapists/selector";
 import { selectChildren } from "../features/children/selector";
 import HamburgerButton from "../components/Humberger";
+import { getTherapists } from "../features/therapists/thunk.api";
+import { getChildren } from "../features/children/thunk.api";
 
 const Dashboard = () => {
+  const dispatch = useAppDispatch();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const therapistData = useAppSelector(selectTherapist);
   const childrenData = useAppSelector(selectChildren);
   const therapistCount = therapistData?.therapists?.length || 0;
   const childrenCount = childrenData?.children?.total || 0;
+
+  useEffect(() => {
+    dispatch(getTherapists());
+    dispatch(getChildren({ page: 1, limit: 5 }));
+  }, [dispatch]);
 
   return (
     <div className="flex h-screen bg-gray-100">
