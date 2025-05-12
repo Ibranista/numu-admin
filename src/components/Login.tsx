@@ -4,6 +4,7 @@ import { loginInitialState, loginSchema } from "../schema/auth.schema";
 import { selectAuthUser } from "../features/auth/selector";
 import Spinner from "./Spinner";
 import { loginUser } from "../features/auth/thunk.api";
+import toast from "react-hot-toast";
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -13,8 +14,13 @@ const Login: React.FC = () => {
   const formik = useFormik({
     initialValues: loginInitialState,
     validationSchema: loginSchema,
-    onSubmit: (values) => {
-      dispatch(loginUser(values));
+    onSubmit: async (values) => {
+      const result = await dispatch(loginUser(values));
+      if (result.type === "auth/loginUser/fulfilled") {
+        toast.success("Logged in successfully!");
+      } else if (result.type === "auth/loginUser/rejected") {
+        toast.error("Invalid credentials. Please try again.");
+      }
     },
   });
 
