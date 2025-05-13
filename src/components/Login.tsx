@@ -10,7 +10,7 @@ const Login: React.FC = () => {
   const dispatch = useAppDispatch();
   const authUser = useAppSelector(selectAuthUser);
   const { loading, error } = authUser ?? {};
-  console.log({ loading, error });
+
   const formik = useFormik({
     initialValues: loginInitialState,
     validationSchema: loginSchema,
