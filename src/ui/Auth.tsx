@@ -13,7 +13,7 @@ const Auth: React.FC = () => {
           className="max-w-full h-auto rounded-md"
         />
       </div>
-      <div className="flex flex-col w-full lg:w-1/2 items-center justify-center bg-gray-800 text-white p-6">
+      <div className="flex flex-col w-full lg:w-1/2 items-center justify-center bg-gray-800 text-white p-6 h-full">
         <div className="flex space-x-4 mb-6">
           <button
             className={`cursor-pointer px-4 py-2 rounded ${

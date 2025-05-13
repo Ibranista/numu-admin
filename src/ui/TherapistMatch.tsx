@@ -105,22 +105,22 @@ const TherapistMatch = () => {
       sidebarOpen={sidebarOpen}
       setSidebarOpen={setSidebarOpen}
     >
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
         {children.results.map((child) => {
           const filteredTherapists = getFilteredTherapists(child);
 
           return (
             <section
               key={child.id}
-              className="bg-white rounded-xl shadow-lg p-6 flex flex-col md:grid md:grid-cols-2 gap-6 border border-purple-100 hover:shadow-2xl transition"
+              className="bg-white rounded-xl shadow-md p-4 sm:p-6 flex flex-col gap-6 border border-purple-100 hover:shadow-2xl transition md:grid md:grid-cols-2"
             >
               <ChildInfo child={child} />
 
               <section>
-                <p className="text-lg font-semibold text-purple-900 mb-2 border-b-2 border-purple-200 pb-2">
+                <p className="text-base sm:text-lg font-semibold text-purple-900 mb-2 border-b-2 border-purple-200 pb-2">
                   Therapists
                 </p>
-                <article className="flex-1 flex flex-col gap-4 max-h-96 overflow-auto">
+                <article className="flex-1 flex flex-col gap-4 max-h-80 sm:max-h-96 overflow-auto">
                   {filteredTherapists && filteredTherapists.length > 0 ? (
                     filteredTherapists.map((therapist) => (
                       <TherapistSuggestion
@@ -155,12 +155,14 @@ const TherapistMatch = () => {
       </div>
 
       {children && children.total > PAGE_LIMIT && (
-        <Pagination
-          page={page}
-          total={children.total}
-          limit={PAGE_LIMIT}
-          onPageChange={setPage}
-        />
+        <div className="mt-6">
+          <Pagination
+            page={page}
+            total={children.total}
+            limit={PAGE_LIMIT}
+            onPageChange={setPage}
+          />
+        </div>
       )}
     </TherapistMatchLayout>
   );
