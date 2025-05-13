@@ -18,7 +18,7 @@ const Spinner: React.FC<SpinnerProps> = ({
 
   const containerClasses =
     variation === "screen-large"
-      ? "fixed flex flex-col gap-3 inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+      ? "fixed flex flex-col gap-3 inset-0 flex items-center justify-center bg-primary bg-opacity-50 z-50"
       : "inline-flex items-center";
 
   return (

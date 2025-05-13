@@ -19,7 +19,6 @@ export const createTherapist = createAsyncThunk(
     "therapists/createTherapist",
     async (therapistData: FormData, thunkAPI) => {
         try {
-            console.log("Therapist Data", therapistData);
             const response = await api.post(`${feature}/`, therapistData);
             return response.data;
         } catch (error: any) {

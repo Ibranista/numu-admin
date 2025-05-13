@@ -9,7 +9,6 @@ import { selectTherapist } from "../features/therapists/selector";
 import { selectExpertise } from "../features/expertise/selector";
 import { getTherapists } from "../features/therapists/thunk.api";
 import Spinner from "../components/Spinner";
-import { selectConcerns } from "../features/concerns/selector";
 import { getConcerns } from "../features/concerns/thunk.api";
 import ConcernsForm from "../components/forms/Concerns.form";
 
@@ -18,8 +17,6 @@ const Utils = () => {
   const dispatch = useAppDispatch();
   const therapistData = useAppSelector(selectTherapist);
   const expertiseData = useAppSelector(selectExpertise);
-  const concernsData = useAppSelector(selectConcerns);
-  console.log("Concerns Data", concernsData);
   const { loading, therapists } = therapistData ?? {};
   const { expertise: expertiseList, loading: expertiseLoading } =
     expertiseData ?? {};
