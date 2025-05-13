@@ -24,7 +24,7 @@ const Dashboard = () => {
     <div className="flex h-screen bg-gray-100">
       <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
       <article className="flex-1 flex flex-col overflow-hidden">
-        <header className="lg:hidden bg-gray-900 text-white p-4 flex items-center justify-between">
+        <header className="lg:hidden bg-purple-800/95 text-white p-4 flex items-center justify-between">
           <HamburgerButton onClick={() => setSidebarOpen(!sidebarOpen)} />
           <img src="/wecare.png" alt="WeCare Logo" className="h-8" />
         </header>
@@ -35,7 +35,8 @@ const Dashboard = () => {
           >
             <div className="text-center">
               <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-                Welcome to Numu Dashboard
+                Welcome to <span className="text-purple-800/95">Numu</span>{" "}
+                Dashboard
               </h1>
               <p className="text-lg text-gray-600 mb-8">
                 Numu is your platform to manage therapy sessions, connect with

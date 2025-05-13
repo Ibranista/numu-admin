@@ -43,16 +43,18 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
   return (
     <>
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-gray-900 text-white flex flex-col z-40 transition-all duration-300 ease-in-out
+        className={`fixed top-0 left-0 h-full w-72 lg:w-96 bg-purple-800/95 text-white flex flex-col z-40 transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"} 
-          lg:translate-x-0 lg:static lg:flex lg:w-96`}
+          lg:translate-x-0 lg:static`}
       >
-        <div className="flex items-center justify-center border-b border-gray-800 px-4 py-8">
-          <img src="/wecare.png" alt="WeCare Logo" className="h-14" />
-          <span className="ml-3 text-2xl font-semibold">WeCare</span>
+        <div className="flex items-center gap-3 px-6 py-5 border-b border-gray-700/60 shadow-sm">
+          <img src="/wecare.png" alt="WeCare Logo" className="h-10 w-auto" />
+          <span className="text-2xl font-bold tracking-wide text-white">
+            WeCare
+          </span>
         </div>
 
-        <nav className="flex-1 py-6 flex flex-col gap-5 px-4">
+        <nav className="flex-1 py-6 flex flex-col gap-4 px-4">
           {links.map((link) => (
             <button
               key={link.name}
@@ -60,7 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
                 navigate(link.path);
                 setOpen(false);
               }}
-              className={`cursor-pointer text-2xl flex items-center px-4 py-3 rounded-lg transition-all duration-200 w-full font-medium
+              className={`text-lg flex items-center px-4 py-3 rounded-lg transition-all duration-200 w-full font-medium
                 ${
                   location.pathname === link.path
                     ? "bg-purple-700 text-white"
@@ -89,7 +91,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
         <div className="mt-auto mb-6 px-4">
           <button
             onClick={handleLogout}
-            className="cursor-pointer w-full flex items-center justify-center py-2.5 px-4 rounded-lg bg-red-600 hover:bg-red-700 transition-colors font-medium text-white"
+            className="w-full flex items-center justify-center py-3 px-4 rounded-lg bg-red-600 hover:bg-red-700 transition-colors font-medium text-white"
           >
             <svg
               className="w-5 h-5 mr-2"
@@ -110,10 +112,10 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
         </div>
       </aside>
 
-      {/* for mobile screen */}
+      {/* Overlay for mobile */}
       {open && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-30 lg:hidden"
           onClick={() => setOpen(false)}
         ></div>
       )}
