@@ -42,6 +42,54 @@ export interface ITherapistMatch {
     updated_at: string;
 }
 
+// {
+//     "total": 1,
+//     "page": 1,
+//     "limit": 5,
+//     "results": [
+//         {
+//             "id": 1,
+//             "name": "Child name",
+//             "gender": "male",
+//             "birthDate": "2025-05-05",
+//             "parent": {
+//                 "id": 1,
+//                 "username": "ipqdQmSlVJcOcAfF3XCaLpurAAf2",
+//                 "email": "parent@parent.com",
+//                 "first_name": "parent",
+//                 "last_name": "parent",
+//                 "userprofile": {
+//                     "firebase_uid": "ipqdQmSlVJcOcAfF3XCaLpurAAf2",
+//                     "role": "user"
+//                 }
+//             },
+//             "concerns": [
+//                 {
+//                     "id": 1,
+//                     "title": "concern one",
+//                     "description": "concern description"
+//                 }
+//             ],
+//             "languages": [
+//                 "arabic",
+//                 "french"
+//             ],
+//             "has_emotional_distress_signs": false,
+//             "is_behavior_challenging": false,
+//             "struggle_with_social": false,
+//             "child_activeness": false,
+//             "has_difficulty_movement": false,
+//             "has_learning_problems": false,
+//             "has_communication_problems": false,
+//             "has_meal_problems": false,
+//             "has_difficulty_with_sleep": false,
+//             "did_we_miss_anything": "More info.",
+//             "therapist_matches": [],
+//             "acceptedTherapists": []
+//         }
+//     ]
+// }
+
 export interface IChild {
     id: number;
     name: string;
@@ -51,6 +99,17 @@ export interface IChild {
     concerns: IConcern[];
     therapist_matches: ITherapistMatch[];
     acceptedTherapists: any[];
+    languages: string[];
+    has_emotional_distress_signs: boolean;
+    is_behavior_challenging: boolean;
+    struggle_with_social: boolean;
+    child_activeness: boolean;
+    has_difficulty_movement: boolean;
+    has_learning_problems: boolean;
+    has_communication_problems: boolean;
+    has_meal_problems: boolean;
+    has_difficulty_with_sleep: boolean;
+    did_we_miss_anything: string;
 }
 
 export interface IChildrenResponse {
