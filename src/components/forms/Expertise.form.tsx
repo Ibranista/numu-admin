@@ -14,7 +14,7 @@ const ExpertiseForm = () => {
   const dispatch = useAppDispatch();
   const expertiseData = useAppSelector((state) => state.expertise);
   const { loading, error } = expertiseData ?? {};
-  console.log("expertise data-->", expertiseData);
+
   const formik = useFormik<IExpertise>({
     initialValues: expertiseInitialValues,
     validationSchema: expertiseSchema,

@@ -50,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
         <div className="flex items-center gap-3 px-6 py-5 border-b border-gray-700/60 shadow-sm">
           <img src="/wecare.png" alt="WeCare Logo" className="h-10 w-auto" />
           <span className="text-2xl font-bold tracking-wide text-white">
-            WeCare
+            NuMu Admin
           </span>
         </div>
 
