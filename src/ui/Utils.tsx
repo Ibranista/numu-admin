@@ -35,7 +35,7 @@ const Utils = () => {
       <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
 
       <article className="flex-1 flex flex-col overflow-hidden">
-        <header className="lg:hidden bg-gray-900 text-white p-4 flex items-center justify-between">
+        <header className="lg:hidden bg-purple-800/95 text-white p-4 flex items-center justify-between">
           <HamburgerButton onClick={() => setSidebarOpen(!sidebarOpen)} />
           <img src="/wecare.png" alt="WeCare Logo" className="h-8" />
         </header>

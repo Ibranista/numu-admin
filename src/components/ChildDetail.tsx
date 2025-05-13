@@ -1,6 +1,7 @@
 import type { IChild } from "../features/children/types";
 import type { ITherapist } from "../features/therapists/types";
 import Sidebar from "../ui/Sidebar";
+import HamburgerButton from "./Humberger";
 
 export const ChildDetail = ({
   label,
@@ -88,12 +89,18 @@ export const TherapistMatchLayout = ({
 }) => (
   <section className="flex h-screen bg-gray-100">
     <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
-    <main className="flex-1 overflow-y-auto p-8">
-      <h1 className="text-3xl font-bold mb-8 text-primary">
-        Children & Therapist Matches
-      </h1>
-      {children}
-    </main>
+    <article className="flex-1 flex flex-col overflow-hidden">
+      <header className="lg:hidden bg-purple-800/95 text-white p-4 flex items-center justify-between">
+        <HamburgerButton onClick={() => setSidebarOpen(!sidebarOpen)} />
+        <img src="/wecare.png" alt="WeCare Logo" className="h-8" />
+      </header>
+      <main className="flex-1 overflow-y-auto p-8">
+        <h1 className="text-3xl font-bold mb-8 text-primary">
+          Children & Therapist Matches
+        </h1>
+        {children}
+      </main>
+    </article>
   </section>
 );
 
