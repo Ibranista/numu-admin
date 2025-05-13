@@ -16,6 +16,7 @@ import {
   TherapistMatchLayout,
   TherapistSuggestion,
 } from "../components/ChildDetail";
+import { DeleteIcon, InfoIcon, SuccessIcon } from "../assets/icons";
 
 const PAGE_LIMIT = 5;
 
@@ -139,11 +140,63 @@ const TherapistMatch = () => {
                   ) : child.therapist_matches?.some(
                       (match) => match.status === "pending"
                     ) ? (
-                    <div className="text-yellow-600 font-medium">Pending</div>
+                    <div className="bg-white border border-yellow-300 rounded-xl p-4 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                      <div className="flex items-center gap-2">
+                        <InfoIcon />
+                        <span className="text-yellow-800 font-semibold">
+                          Pending Matches:
+                        </span>
+                      </div>
+                      <p className="text-md text-gray-700">
+                        {child.therapist_matches
+                          .filter((match) => match.status === "pending")
+                          .map((match) => match.therapist?.name)
+                          .filter(Boolean)
+                          .join(", ")}
+                      </p>
+                    </div>
                   ) : child.therapist_matches?.some(
                       (match) => match.status === "accepted"
                     ) ? (
-                    <div className="text-green-600 font-medium">Accepted</div>
+                    <div className="bg-white border border-green-300 rounded-xl p-4 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                      <div className="flex items-center gap-2">
+                        <SuccessIcon />
+                        <span className="text-green-800 font-semibold">
+                          Accepted Matches:
+                        </span>
+                      </div>
+                      <div className="text-sm text-gray-700">
+                        {child.therapist_matches
+                          .filter((match) => match.status === "accepted")
+                          .map((match) => match.therapist?.name)
+                          .filter(Boolean)
+                          .join(", ")}
+                      </div>
+                    </div>
+                  ) : child.therapist_matches?.some(
+                      (match) => match.status === "declined"
+                    ) ? (
+                    <div className="bg-white border border-red-300 rounded-xl p-4 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                      <div className="flex items-center gap-2">
+                        <button className="p-2 text-red-800 hover:text-red-700 transition-colors">
+                          <DeleteIcon />
+                        </button>
+                        <span className="text-red-800 font-semibold">
+                          Declined Matches:
+                        </span>
+                      </div>
+                      <div className="text-sm text-gray-700">
+                        {child.therapist_matches
+                          .filter((match) => match.status === "declined")
+                          .map((match) =>
+                            match.therapist?.name && match.decline_reason
+                              ? `${match.therapist.name} (Reason: ${match.decline_reason})`
+                              : match.therapist?.name || null
+                          )
+                          .filter(Boolean)
+                          .join(", ")}
+                      </div>
+                    </div>
                   ) : (
                     <div className="text-gray-500">No therapist matches</div>
                   )}
